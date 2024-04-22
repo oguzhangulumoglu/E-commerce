@@ -1,0 +1,221 @@
+{include file="header.tpl"}
+
+<div class="page-navigation">
+    <div class="container">
+        <div class="current-page pull-left">
+            <span><i class="fa fa-fw fa-circle-o" aria-hidden="true"></i>arama sonuçları</span>
+        </div>
+        <ol class="breadcrumb pull-right">
+            <li><a href="{base_url()}">Anasayfa</a></li>
+            <li class="active">Arama Sonuçları</li>
+        </ol>
+    </div>
+</div>
+
+
+<section class="content pb">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 hidden-xs">
+                {$ads["reklam_3"]}
+            </div>
+
+            <div class="col-sm-9">
+                <div class="wrapper">
+
+                    <div class="page-header">
+                        {if $smarty.get.keywords}
+                        <h1>"{$smarty.get.keywords}" <span class="black"> Arama Sonuçları</span></h1>
+                        {else}
+                        <h1><span class="black">Arama Sonuçları</span></h1>
+                        {/if}
+                        <div class="search-result pull-right">
+                            <span class="page">Toplam {$page} Sayfa</span>
+                            <span class="count">{$total} Ürün Bulundu</span>
+                        </div>
+                    </div>
+
+                    {foreach from=$searchs name=foo item=search}
+
+                        {if $search->company}
+                        <div class="result {if $smarty.foreach.foo.index is even}lightgrey{/if}">
+                            <div class="row row-sm-mg">
+                                <div class="col-sm-3 col-sm-pd">
+                                    <figure><img src="{if $search->logo}{base_url($search->logo)}{else}{base_url("assets/images/no_image.jpg")}{/if}" style="max-width: 134px; max-height:126px" alt="" class="img-responsive center-block"></figure>
+                                </div>
+                                <div class="col-sm-9 col-sm-pd">
+                                    <h3 class="result-header">
+                                        <a href="{base_url("/genel/bayi/")}/{$search->uri}">{$search->company|capitalize}</a>
+                                    </h3>
+                                    <style>
+                                        .tire-info .description {
+                                            font-weight: bold;
+                                            padding-right: 10px;
+                                            font-size: 12px;
+                                        }
+                                        .tire-info .value {
+                                            padding-left: 10px;
+                                            font-size: 12px;
+                                        }
+                                        .tire-info {
+                                            padding: 10px 0;
+                                        }
+                                    </style>
+                                    <div class="result-body">
+                                        <div class="col-md-12" style="padding: 20px 0 0"><strong>Verilen Hizmetler</strong></div>
+                                        <div class="vendor-services">
+                                            <ul class="col-md-6 tire-info" style="background-color: #fff; padding: 10px; border-radius: 10px; border: 1px solid #ddd">
+                                                <li>Lastik Değişimi <i class="fa fa-fw {if $search->service_1 > 0}fa-check{else}fa-times{/if}"></i></li>
+                                                <li>Nitrojen Gaz Dolumu <i class="fa fa-fw {if $search->service_2 > 0}fa-check{else}fa-times{/if}"></i></li>
+                                                <li>Rot Ayarı <i class="fa fa-fw {if $search->service_3 > 0}fa-check{else}fa-times{/if}"></i></li>
+                                            </ul>
+                                            <ul class="col-md-6 tire-info" style="background-color: #fff; padding: 10px; border-radius: 10px;border: 1px solid #ddd">
+                                                <li>Sibop Değişimi <i class="fa fa-fw {if $search->service_4 > 0}fa-check{else}fa-times{/if}"></i></li>
+                                                <li>Mobil Değişim <i class="fa fa-fw {if $search->service_5 > 0}fa-check{else}fa-times{/if}"></i></li>
+                                                <li>Yağ Değişim <i class="fa fa-fw {if $search->service_6 > 0}fa-check{else}fa-times{/if}"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <a href="{base_url("/genel/bayi")}/{$search->uri}" class="btn btn-red" style="display: inline-block; margin-top: 10px">Bayi Detayı <i class="fa fa-angle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        {else}
+                        <div class="result {if $smarty.foreach.foo.index is even}lightgrey{/if}">
+                            <div class="row row-sm-mg">
+                                {if $search->hit > 1000}
+                                <div class="col-sm-3 col-sm-pd">
+                                    <figure class="banner"><span>popüler</span><img src="{if $search->id|get_data_image:"image"}{base_url($search->id|get_data_image:"image")}{else}{base_url("assets/images/no_image.jpg")}{/if}" style="max-width: 134px; max-height:126px" alt="" class="img-responsive center-block"></figure>
+                                </div>
+                                {else}
+                                <div class="col-sm-3 col-sm-pd">
+                                    <figure><img src="{if $search->pid}{if $search->pid|get_data_image:"image"}{base_url($search->pid|get_data_image:"image")}{else}{base_url("assets/images/no_image.jpg")}{/if}{else}{if $search->id|get_data_image:"image"}{base_url($search->id|get_data_image:"image")}{else}{base_url("assets/images/no_image.jpg")}{/if}{/if}" style="max-width: 134px; max-height:126px" alt="" class="img-responsive center-block"></figure>
+                                </div>
+                                {/if}
+                                <div class="col-sm-7 col-sm-pd">
+                                    <h3 class="result-header">
+                                        <a href="{base_url("/genel/lastik")}/{$search->uri}">{$search->name|capitalize}</a>
+                                    </h3>
+                                    <style>
+                                        .tire-info .description {
+                                            font-weight: bold;
+                                            padding-right: 10px;
+                                            font-size: 12px;
+                                        }
+                                        .tire-info .value {
+                                            padding-left: 10px;
+                                            font-size: 12px;
+                                        }
+                                        .tire-info {
+                                            padding: 30px 0;
+                                        }
+                                    </style>
+                                    <div class="result-body">
+                                        <ul class="tire-info col-md-6" style="min-height: 140px">
+                                            <li><span class="description">Lastik Marka</span>:<span class="value">{$search->brand|get_data:"brand":"name"}</span></li>
+                                            <li><span class="description">Lastik Yüksekliği</span>:<span class="value">{$search->tire_width|get_data:"tire_width":"name"}</span></li>
+                                            <li><span class="description">Lastik Oranı</span>:<span class="value">{$search->tire_rate|get_data:"tire_rate":"name"}</span></li>
+                                        </ul>
+                                        <ul class="tire-info col-md-6" style="min-height: 140px">
+                                            <li><span class="description">Jant Çapı</span>:<span class="value">{$search->rim_diameter|get_data:"rim_diameter":"name"}</span></li>
+                                            <li><span class="description">Hız İndexi</span>:<span class="value">{$search->speed_index|get_data:"speed_index":"name"}</span></li>
+                                            <li><span class="description">Mevsim</span>:<span class="value">{$search->season|get_data:"season":"name"}</span></li>
+                                        </ul>
+                                        <ul class="specs">
+                                            <li>Güvenlik
+                                                <ul class="rating">
+                                                    {if $search->guvenlik eq "-"}
+                                                        <li>-</li>
+                                                    {else}
+                                                    <li><i class="fa fa-star {if $search->guvenlik < 1}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->guvenlik < 2}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->guvenlik < 3}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->guvenlik < 4}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->guvenlik < 5}grey{/if}" aria-hidden="true"></i></li>
+                                                    {/if}
+                                                </ul>
+                                            </li>
+                                            <li>Tasarruf
+                                                <ul class="rating">
+                                                    {if $search->tasarruf eq "-"}
+                                                        <li>-</li>
+                                                    {else}
+                                                    <li><i class="fa fa-star {if $search->tasarruf < 1}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->tasarruf < 2}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->tasarruf < 3}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->tasarruf < 4}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->tasarruf < 5}grey{/if}" aria-hidden="true"></i></li>
+                                                    {/if}
+                                                </ul>
+                                            </li>
+                                            <li>Konfor
+                                                <ul class="rating">
+                                                    {if $search->konfor eq "-"}
+                                                        <li>-</li>
+                                                    {else}
+                                                    <li><i class="fa fa-star {if $search->konfor < 1}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->konfor < 2}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->konfor < 3}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->konfor < 4}grey{/if}" aria-hidden="true"></i></li>
+                                                    <li><i class="fa fa-star {if $search->konfor < 5}grey{/if}" aria-hidden="true"></i></li>
+                                                    {/if}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-sm-pd">
+                                    <span style="font-size: 12px; font-weight:800">Müşteri Puanı ({$search->id|comments:"product_stars"})</span>
+                                    <ul class="rating">
+                                        <li><i class="fa fa-star {if $search->id|comments:"product_stars" < 1}grey{/if}" aria-hidden="true"></i></li>
+                                        <li><i class="fa fa-star {if $search->id|comments:"product_stars" < 2}grey{/if}" aria-hidden="true"></i></li>
+                                        <li><i class="fa fa-star {if $search->id|comments:"product_stars" < 3}grey{/if}" aria-hidden="true"></i></li>
+                                        <li><i class="fa fa-star {if $search->id|comments:"product_stars" < 4}grey{/if}" aria-hidden="true"></i></li>
+                                        <li><i class="fa fa-star {if $search->id|comments:"product_stars" < 5}grey{/if}" aria-hidden="true"></i></li>
+                                    </ul>
+                                    <div class="price">
+                                        <span class="red" style="color: #CF2029;font-size: 14px;">Min. Fiyat</span>
+                                        <span>{if $search->amount}{$search->amount}.<small>00TL</small>{else}{$search->id|get_max_amount}{/if}</span>
+                                    </div>
+                                    <a href="{base_url("/genel/lastik")}/{$search->uri}" class="btn btn-red">Ürün Detayı <i class="fa fa-angle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    {/if}
+
+                    {foreachelse}
+                        <div class="col-md-12">
+                            <div class="white-bg">
+                                <div class="row">
+                                    <span style="padding: 15px;display: inline-block;">Üzgünüm, herhangi bir ürün bulunamadı, lütfen daha sonra tekrar deneyiniz!</span>
+                                </div>
+                            </div>
+                        </div>
+                    {/foreach}
+
+                    {assign var=exp value="?"|explode:$smarty.server.REQUEST_URI}
+                    <ul class="pagination">
+                        {if $page > 1}
+                        <li><a href="{base_url("main/search")}/1{if $exp[1]}?{$exp[1]}{/if}"> << </a></li>
+                        <li><a href="{base_url("main/search")}/{if $complete <= 1}1{else}{$complete-1}{/if}{if $exp[1]}?{$exp[1]}{/if}"> < </a></li>
+                        {/if}
+                        <li class="active"><a href="{base_url("main/search")}/{$complete}/{if $exp[1]}?{$exp[1]}{/if}"> {$complete} </a></li>
+                        {if $page > 1}
+                        <li><a href="{base_url("main/search")}/{if $page <= $complete+1}{$page}{else}{$complete+1}{/if}{if $exp[1]}?{$exp[1]}{/if}"> > </a></li>
+                        <li><a href="{base_url("main/search")}/{$page}{if $exp[1]}?{$exp[1]}{/if}"> >> </a></li>
+                        {/if}
+                    </ul>
+
+                    <div class="hidden">
+                        {for $foo=1 to $page}
+                            <li{if $foo eq $complete} class="active"{/if}><a href="{base_url("main/search")}/{$foo}{if $exp[1]}?{$exp[1]}{/if}">{$foo}</a></li>
+                        {/for}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{include file="footer.tpl"}

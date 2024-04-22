@@ -1,0 +1,204 @@
+{include file="header.tpl"}
+
+<div class="page-navigation">
+    <div class="container">
+        <div class="current-page pull-left">
+            <span><i class="fa fa-fw fa-circle-o" aria-hidden="true"></i>bayi giriş</span>
+        </div>
+        <ol class="breadcrumb pull-right">
+            <li><a href="{base_url()}">Anasayfa</a></li>
+            <li class="active">Sipariş Ver</li>
+        </ol>
+    </div>
+</div>
+
+<div class="top-header">
+    <div class="container">
+        <h1>Bayi Paneli</h1>
+    </div>
+</div>
+
+<section class="vendor-settings">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <figure>
+                            <img src="{if $logo}{base_url($logo)}{else}{base_url("assets/img/bayilogo1.png")}{/if}" alt="" class="img-responsive center-block img-circle">
+                            <figcaption>
+                                <h3>{$company}</h3>
+                                <span>{$email}</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                {include file="sidebar.tpl"}
+            </div>
+
+            <div class="col-sm-8 col-md-9">
+                <div class="tab-content">
+
+                    <div class="tab-pane active">
+                        <h3><i class="fa fa-circle" aria-hidden="true"></i> Sipariş Ver</h3>
+                        <div class="search-results">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3><i class="fa fa-circle" aria-hidden="true"></i> Ürünler</h3>
+                                    <div class="input-group">
+                                        <input type="text" name="search_order" class="form-control" placeholder="Ürün adı veya kodu ile ara">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="white-bg">
+                                        <form action="" method="post">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>Ürün ID</th>
+                                                    <th>Ürün Adı</th>
+                                                    <th>Fiyat (Birim)</th>
+                                                    <th></th>
+                                                    <th>Adet</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {foreach from=$list item=product}
+                                                    <tr>
+                                                        <td>{$product->id}</td>
+                                                        <td class="name">{$product->name}</td>
+                                                        <!--<td>{$product->myamount+(($product->myamount/100)*18)|string_format:"%.2f"} TL</td>-->
+                                                        <td>{$product->myamount|string_format:"%.2f"} <i class="fa fa-try"></i></td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myModal{$product->id}">Ürün detayı</a>
+                                                            <div id="myModal{$product->id}" class="modal fade" role="dialog" style="background: rgba(0,0,0,0.3)">
+                                                                <div class="modal-dialog" style="border: 1px solid #ddd;border-radius: 10px;padding: 10px;background: #fff;">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">{$product->id} Nolu Ürün Özellikleri</h4>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <table class="table">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Lastik Marka
+                                                                                        </td>
+                                                                                        <td>:</td>
+                                                                                        <td>
+                                                                                            {$product->brand|get_data:"brand":"name"}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Lastik Yüksekliği
+                                                                                        </td>
+                                                                                        <td>:</td>
+                                                                                        <td>
+                                                                                            {$product->tire_width|get_data:"tire_width":"name"}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Lastik Oranı
+                                                                                        </td>
+                                                                                        <td>:</td>
+                                                                                        <td>
+                                                                                            {$product->tire_rate|get_data:"tire_rate":"name"}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Jant Çapı
+                                                                                        </td>
+                                                                                        <td>:</td>
+                                                                                        <td>
+                                                                                            {$product->rim_diameter|get_data:"rim_diameter":"name"}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Hız İndexi
+                                                                                        </td>
+                                                                                        <td>:</td>
+                                                                                        <td>
+                                                                                            {$product->speed_index|get_data:"speed_index":"name"}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Mevsim
+                                                                                        </td>
+                                                                                        <td>:</td>
+                                                                                        <td>
+                                                                                            {$product->season|get_data:"season":"name"}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-info" data-dismiss="modal">Kapat</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="product_{$product->id}" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="quantity form-control myCheck{$product->id}" data-amount="{$product->myamount|string_format:"%.2f"}" data-mid="{$id}" value="" placeholder="Adet"/>
+                                                        </td>
+                                                    </tr>
+                                                {foreachelse}
+                                                    <tr>
+                                                        <td colspan="4">
+                                                            <span>Üzgünüm, herhangi bir ürün bulunmamaktadır!</span>
+                                                        </td>
+                                                    </tr>
+                                                {/foreach}
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            ________________________________________________________________________________________________________________________ <span style="font-size: 22px; color: red">+</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3">
+                                                            <input type="hidden" name="total_amount"/>
+                                                        </td>
+                                                        <td>
+                                                            Toplam Fiyat (+18% KDV) :
+                                                        </td>
+                                                        <td>
+                                                            <strong class="total_amount">0.00</strong> <i class="fa fa-try"></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <button type="submit" class="btn btn-green text-right col-md-12">Siparişimi Gönder</button>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pagination">
+                                {for $foo=1 to $page}
+                                    <li{if $foo eq $complete} class="active"{/if}><a href="{base_url("main/order/")}/{$foo}">{$foo}</a></li>
+                                {/for}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{include file="footer.tpl"}
